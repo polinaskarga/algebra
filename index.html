@@ -42,6 +42,13 @@
 
     * { box-sizing: border-box; }
 
+    html,
+    body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       margin: 0;
       font-family: Manrope, sans-serif;
@@ -352,6 +359,19 @@
       display: none;
     }
 
+    .lecture-block {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    #all-lectures {
+      display: grid;
+      gap: 14px;
+      padding: 14px;
+      width: 100%;
+      max-width: 100%;
+    }
+
     .chapter-header {
       border: 1px solid #d7c9a9;
       border-left: 7px solid #b78b3b;
@@ -524,8 +544,8 @@
 
       #all-lectures,
       #glossary-pane {
-        padding: 8px;
-        gap: 10px;
+        padding: 4px !important;
+        gap: 8px !important;
       }
 
       .chapter-header {
@@ -535,7 +555,13 @@
 
       .layout {
         padding: 0;
-        gap: 10px;
+        gap: 8px;
+      }
+
+      .lecture-block {
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
       }
 
       .sidebar,
@@ -592,15 +618,20 @@
       .step {
         padding: 6px;
         margin: 6px 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
       }
 
       .mjx-container,
       .MathJax,
       .MathJax_Display {
-        font-size: 0.9em !important;
+        font-size: 0.86em !important;
         max-width: 100%;
+        display: block;
         overflow-x: auto;
         overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
       }
 
       .glossary-columns {
@@ -937,7 +968,7 @@
     </section>
   </section>
 
-  <main id="all-lectures" style="padding:14px; display:grid; gap:14px;">
+  <main id="all-lectures">
     <section id="lecture-1" class="lecture-block" data-lecture="1" data-base="https://matematiflo.github.io/VorlesungAlgebra1/src/Woche1/Gruppen.html" style="border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#fffefb;">
 
   <header class="topbar">
@@ -5752,6 +5783,9 @@
 
     blocks.forEach((block) => {
       const n = block.getAttribute('data-lecture');
+
+      // Inline legacy styles from source files can cause clipped mobile layout.
+      block.style.overflow = 'visible';
 
       const chapterMeta = {
         '1': { title: 'Kapitel I: Gruppen', range: 'Vorlesungen 1-8' },
