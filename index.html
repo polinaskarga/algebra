@@ -47,6 +47,7 @@
       width: 100%;
       max-width: 100%;
       overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
@@ -498,7 +499,7 @@
 
     @media (max-width: 700px) {
       body {
-        padding-bottom: calc(78px + env(safe-area-inset-bottom));
+        padding-bottom: calc(72px + env(safe-area-inset-bottom));
       }
 
       .topbar {
@@ -509,7 +510,7 @@
       .brand {
         margin-right: 0;
         width: 100%;
-        font-size: 1.95rem;
+        font-size: 1.6rem;
         line-height: 1.15;
       }
 
@@ -527,18 +528,18 @@
         bottom: calc(8px + env(safe-area-inset-bottom));
         top: auto;
         z-index: 40;
-        padding: 6px;
+        padding: 5px;
         border: 1px solid #c9bc9f;
-        border-radius: 14px;
+        border-radius: 12px;
         background: rgba(255, 252, 245, 0.98);
-        box-shadow: 0 10px 24px rgba(18, 24, 31, 0.15);
+        box-shadow: 0 8px 18px rgba(18, 24, 31, 0.14);
       }
 
       .tab-button {
         flex: 1;
         text-align: center;
-        font-size: 0.92rem;
-        padding: 10px 8px;
+        font-size: 0.88rem;
+        padding: 9px 8px;
         border-radius: 10px;
       }
 
@@ -554,14 +555,19 @@
       }
 
       .layout {
+        display: block;
         padding: 0;
-        gap: 8px;
+        gap: 0;
       }
 
       .lecture-block {
         border: 0 !important;
         border-radius: 0 !important;
         background: transparent !important;
+      }
+
+      .sidebar {
+        display: none;
       }
 
       .sidebar,
@@ -576,7 +582,9 @@
       }
 
       .main {
-        padding: 10px;
+        padding: 4px;
+        border: 0;
+        background: transparent;
       }
 
       .hero {
@@ -590,7 +598,9 @@
 
       .hero p,
       .card p {
-        line-height: 1.38;
+        line-height: 1.4;
+        font-size: 0.98rem;
+        overflow-wrap: anywhere;
       }
 
       .grid {
@@ -598,7 +608,7 @@
       }
 
       .card {
-        padding: 8px;
+        padding: 10px;
         border-radius: 10px;
       }
 
@@ -611,7 +621,9 @@
       }
 
       .source-ref {
-        font-size: 0.68rem;
+        font-size: 0.74rem;
+        white-space: normal;
+        overflow-wrap: anywhere;
       }
 
       .equation,
@@ -626,12 +638,21 @@
       .mjx-container,
       .MathJax,
       .MathJax_Display {
-        font-size: 0.86em !important;
+        font-size: 0.95em !important;
         max-width: 100%;
         display: block;
         overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
+      }
+
+      .step,
+      .equation,
+      .tracker td,
+      .tracker th,
+      .g-desc {
+        overflow-wrap: anywhere;
+        word-break: normal;
       }
 
       .glossary-columns {
