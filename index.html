@@ -499,59 +499,66 @@
 
     @media (max-width: 700px) {
       body {
-        padding-bottom: calc(64px + env(safe-area-inset-bottom));
+        padding-bottom: 0;
       }
 
       .topbar {
-        padding: 10px 10px 8px;
-        gap: 8px;
+        padding: 8px 10px;
+        gap: 6px;
       }
 
       .brand {
-        margin-right: 0;
-        width: 100%;
-        font-size: 1.6rem;
-        line-height: 1.15;
+        width: auto;
+        margin-right: auto;
+        font-size: 1.1rem;
+        line-height: 1.2;
       }
 
       .lecture-picker {
-        width: 100%;
-        border-radius: 14px;
-        justify-content: space-between;
+        width: auto;
+        min-width: 0;
+        flex: 1;
+        justify-content: flex-start;
+        border-radius: 10px;
+        font-size: 0.78rem;
+        padding: 4px 8px;
         background: #fff;
       }
 
+      #lecture-select {
+        max-width: none;
+        min-width: 0;
+        width: 100%;
+      }
+
       .tabbar {
-        position: fixed;
-        left: 12px;
-        right: 12px;
-        bottom: calc(6px + env(safe-area-inset-bottom));
-        top: auto;
-        z-index: 40;
-        padding: 4px;
-        border: 1px solid #c9bc9f;
-        border-radius: 12px;
-        background: rgba(255, 252, 245, 0.98);
-        box-shadow: 0 6px 14px rgba(18, 24, 31, 0.14);
+        position: sticky;
+        top: 0;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        z-index: 30;
+        margin: 0;
+        padding: 6px 10px;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        box-shadow: none;
+        background: rgba(248, 244, 236, 0.96);
       }
 
       .tab-button {
         flex: 1;
         text-align: center;
-        font-size: 0.88rem;
-        padding: 8px 8px;
-        border-radius: 10px;
+        font-size: 0.84rem;
+        padding: 7px 8px;
+        border-radius: 9px;
       }
 
       #all-lectures,
       #glossary-pane {
-        padding: 4px !important;
-        gap: 8px !important;
-      }
-
-      .chapter-header {
-        border-radius: 10px;
-        padding: 8px 10px;
+        padding: 8px;
+        gap: 8px;
       }
 
       .layout {
@@ -560,46 +567,48 @@
         gap: 0;
       }
 
-      .lecture-block {
-        border: 0 !important;
-        border-radius: 0 !important;
-        background: transparent !important;
-      }
-
       .sidebar {
         display: none;
       }
 
-      .sidebar,
       .main {
-        border-radius: 10px;
-        border: 1px solid #e5dbc9;
-        box-shadow: none;
-      }
-
-      .sidebar {
-        padding: 10px;
-      }
-
-      .main {
-        padding: 4px;
+        padding: 0;
         border: 0;
         background: transparent;
       }
 
+      .hero,
+      .card,
+      .chapter-header,
+      .glossary-group,
+      .g-row {
+        border-radius: 8px;
+        box-shadow: none;
+      }
+
+      .hero,
+      .card,
+      .chapter-header,
+      .glossary-group,
+      .g-row {
+        border-width: 1px;
+      }
+
       .hero {
-        margin-bottom: 10px;
-        padding: 10px;
+        margin-bottom: 8px;
+        padding: 8px;
       }
 
       .hero h1 {
-        font-size: 1.25rem;
+        font-size: 1.22rem;
       }
 
       .hero p,
-      .card p {
-        line-height: 1.4;
+      .card p,
+      .step,
+      .g-desc {
         font-size: 0.98rem;
+        line-height: 1.38;
         overflow-wrap: break-word;
         word-break: normal;
         hyphens: auto;
@@ -610,80 +619,45 @@
       }
 
       .card {
-        padding: 10px;
-        border-radius: 10px;
+        padding: 8px;
       }
 
       .card h3 {
-        font-size: 0.94rem;
-      }
-
-      .badge {
-        margin-bottom: 5px;
+        font-size: 0.95rem;
       }
 
       .source-ref {
-        font-size: 0.74rem;
+        font-size: 0.72rem;
         white-space: normal;
         overflow-wrap: break-word;
-        word-break: break-word;
       }
 
       .equation,
       .step {
-        padding: 6px;
+        padding: 6px 0;
         margin: 6px 0;
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        white-space: normal;
       }
 
-      .equation .mjx-container,
-      .step .mjx-container {
-        min-width: max-content;
+      .equation {
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+        background: transparent;
+        overflow: visible;
       }
 
-      .mjx-container,
-      .MathJax,
-      .MathJax_Display {
-        font-size: 0.95em !important;
-        max-width: 100%;
+      .equation .mjx-container[display="true"] {
         display: block;
         overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
       }
 
-      .step,
-      .equation,
-      .tracker td,
-      .tracker th,
-      .g-desc {
-        overflow-wrap: break-word;
-        word-break: normal;
-      }
-
-      .glossary-columns {
-        gap: 8px;
-      }
-
-      .glossary-group {
-        padding: 8px;
-        border-radius: 10px;
-      }
-
-      .g-row {
-        padding: 6px;
-      }
-
-      .tag {
-        font-size: 0.75rem;
-        padding: 4px 8px;
-      }
-
-      #lecture-select {
-        max-width: 170px;
+      .mjx-container,
+      .MathJax,
+      .MathJax_Display {
+        font-size: 0.92em !important;
+        max-width: 100%;
       }
 
       .tracker table {
@@ -5808,6 +5782,43 @@
       tabGlossary.classList.toggle('active', !showLectures);
     }
 
+    function isMobileViewport() {
+      return window.matchMedia('(max-width: 700px)').matches;
+    }
+
+    function showAllLectures() {
+      blocks.forEach((block) => {
+        block.style.display = '';
+      });
+      document.querySelectorAll('.chapter-header').forEach((header) => {
+        header.style.display = '';
+      });
+    }
+
+    function showOnlyLecture(id) {
+      const target = document.getElementById(id);
+      if (!target) {
+        showAllLectures();
+        return;
+      }
+
+      blocks.forEach((block) => {
+        block.style.display = block.id === id ? '' : 'none';
+      });
+
+      document.querySelectorAll('.chapter-header').forEach((header) => {
+        header.style.display = 'none';
+      });
+
+      let prev = target.previousElementSibling;
+      while (prev && !prev.classList.contains('chapter-header')) {
+        prev = prev.previousElementSibling;
+      }
+      if (prev) {
+        prev.style.display = '';
+      }
+    }
+
     tabLectures.addEventListener('click', () => showPane('lectures'));
     tabGlossary.addEventListener('click', () => showPane('glossary'));
 
@@ -5866,9 +5877,15 @@
       const id = e.target.value;
       if (!id) return;
       showPane('lectures');
-      const target = document.getElementById(id);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (isMobileViewport()) {
+        showOnlyLecture(id);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        showAllLectures();
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     });
 
@@ -5878,11 +5895,39 @@
         const id = link.getAttribute('href')?.slice(1);
         if (!id) return;
         showPane('lectures');
-        const target = document.getElementById(id);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (isMobileViewport()) {
+          select.value = id;
+          showOnlyLecture(id);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          showAllLectures();
+          const target = document.getElementById(id);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         }
       });
+    });
+
+    if (blocks.length > 0) {
+      if (isMobileViewport()) {
+        const initialId = select.value || blocks[0].id;
+        select.value = initialId;
+        showOnlyLecture(initialId);
+      } else {
+        showAllLectures();
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      if (isMobileViewport()) {
+        const currentId = select.value || blocks[0]?.id;
+        if (currentId) {
+          showOnlyLecture(currentId);
+        }
+      } else {
+        showAllLectures();
+      }
     });
   </script>
 
