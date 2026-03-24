@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Algebra 1 Portfolio - Vorlesung 13 (Vertieft)</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231f2937'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' font-family='Arial,sans-serif' font-size='28' fill='%23fff'%3EA1%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f8f4ec;
+      --panel: #fffefb;
+      --ink: #1f2937;
+      --muted: #596274;
+      --line: #d8d0c2;
+
+      --def-bg: #e8f3ff;
+      --def-bd: #4f89cf;
+      --def-tx: #1e4f86;
+
+      --satz-bg: #fff3d8;
+      --satz-bd: #ba7e17;
+      --satz-tx: #7c520d;
+
+      --beweis-bg: #e8f8ea;
+      --beweis-bd: #3d925d;
+      --beweis-tx: #1d693a;
+
+      --intu-bg: #fcecf4;
+      --intu-bd: #b75e86;
+      --intu-tx: #7a2f53;
+
+      --note-bg: #f2eeff;
+      --note-bd: #7f69b5;
+      --note-tx: #4d3b7c;
+
+      --radius: 14px;
+      --shadow: 0 10px 24px rgba(18, 24, 31, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Manrope, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 4%, #efe4c9 0, rgba(239, 228, 201, 0) 34%),
+        radial-gradient(circle at 86% 12%, #deedf0 0, rgba(222, 237, 240, 0) 36%),
+        var(--bg);
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+      background: rgba(248, 244, 236, 0.86);
+    }
+
+    .brand {
+      margin-right: auto;
+      font-family: Literata, serif;
+      font-size: 1.15rem;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .sidebar,
+    .main {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar {
+      padding: 14px;
+      max-height: calc(100vh - 90px);
+      overflow: auto;
+    }
+
+    .main {
+      padding: 16px;
+    }
+
+    .kicker {
+      margin: 0 0 10px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .hero {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #f7fcfd 0%, #fff8e8 100%);
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-family: Literata, serif;
+      font-size: clamp(1.2rem, 1.8vw + 0.5rem, 2rem);
+    }
+
+    .hero p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 82ch;
+      line-height: 1.46;
+    }
+
+    .legend {
+      display: grid;
+      gap: 8px;
+    }
+
+    .legend-item {
+      border: 1px solid var(--line);
+      border-left: 7px solid;
+      border-radius: 8px;
+      padding: 8px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      background: #fff;
+    }
+
+    .legend-item.def { border-left-color: var(--def-bd); color: var(--def-tx); background: var(--def-bg); }
+    .legend-item.satz { border-left-color: var(--satz-bd); color: var(--satz-tx); background: var(--satz-bg); }
+    .legend-item.beweis { border-left-color: var(--beweis-bd); color: var(--beweis-tx); background: var(--beweis-bg); }
+    .legend-item.intu { border-left-color: var(--intu-bd); color: var(--intu-tx); background: var(--intu-bg); }
+    .legend-item.note { border-left-color: var(--note-bd); color: var(--note-tx); background: var(--note-bg); }
+
+    .sidebar-box {
+      margin-top: 12px;
+      border: 1px dashed var(--line);
+      border-radius: 10px;
+      background: #fffdf7;
+      padding: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .tracker {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .tracker table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+    }
+
+    .tracker th,
+    .tracker td {
+      border-bottom: 1px solid #ece5d7;
+      padding: 8px 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .tracker th {
+      background: #faf7ef;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.75rem;
+      color: #3c4757;
+    }
+
+    .tracker tr:last-child td { border-bottom: none; }
+
+    .grid {
+      display: grid;
+      gap: 11px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+
+    .card {
+      grid-column: span 6;
+      border: 1px solid var(--line);
+      border-left-width: 7px;
+      border-radius: 12px;
+      padding: 10px;
+      background: #fff;
+    }
+
+    .card.full { grid-column: span 12; }
+
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .source-ref {
+      margin-top: 2px;
+      margin-bottom: 6px;
+      font-size: 0.7rem;
+      opacity: 0.72;
+      letter-spacing: 0.02em;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .source-ref:hover,
+    .source-ref:focus-visible {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    .card p { margin: 6px 0; line-height: 1.45; }
+
+    .equation {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 7px 8px;
+      margin: 8px 0;
+      background: rgba(255, 255, 255, 0.72);
+      overflow-x: auto;
+    }
+
+    .flow {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .step {
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 8px;
+      padding: 7px 8px;
+      background: rgba(255, 255, 255, 0.68);
+    }
+
+    .use {
+      display: inline-block;
+      border: 1px solid rgba(0, 0, 0, 0.28);
+      border-radius: 999px;
+      padding: 1px 7px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+
+    .def { border-left-color: var(--def-bd); background: var(--def-bg); color: var(--def-tx); }
+    .satz { border-left-color: var(--satz-bd); background: var(--satz-bg); color: var(--satz-tx); }
+    .beweis { border-left-color: var(--beweis-bd); background: var(--beweis-bg); color: var(--beweis-tx); }
+    .intu { border-left-color: var(--intu-bd); background: var(--intu-bg); color: var(--intu-tx); }
+    .note { border-left-color: var(--note-bd); background: var(--note-bg); color: var(--note-tx); }
+
+    @media (max-width: 1100px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { max-height: none; }
+      .card { grid-column: span 12; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Algebra 1 Lernportfolio</div>
+    <div class="tag">Nur Vorlesung 13</div>
+    <div class="tag">Vertiefte Fassung</div>
+    <div class="tag">Euklidisch bis HIR</div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <p class="kicker">Farblogik</p>
+      <div class="legend">
+        <div class="legend-item def">Definitionen und formale Begriffe</div>
+        <div class="legend-item satz">Saetze, Charakterisierungen, Implikationen</div>
+        <div class="legend-item beweis">Beweisskizzen und Induktionsstrukturen</div>
+        <div class="legend-item intu">Intuition und Vergleichsebenen</div>
+        <div class="legend-item note">Notation, Kontexte, Gegenbeispiele</div>
+      </div>
+
+      <div class="sidebar-box">
+        Vorlesung 13 baut die Ringhierarchie auf:
+        euklidisch => DH => Bézout + aKH => Hauptidealring.
+        Zentral sind Normfunktionen, Induktion und Euklid-Algorithmus.
+      </div>
+
+      <div class="tracker">
+        <table>
+          <thead>
+            <tr><th>Abschnitt</th><th>Kerninhalt</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>13.2-13.8</td><td>Euklidische Norm und euklidische Ringe</td></tr>
+            <tr><td>13.9-13.14</td><td>euklidisch => Bézout und Algorithmus</td></tr>
+            <tr><td>13.17-13.20</td><td>DH-Norm, DH-Ringe, Induktionsschritt</td></tr>
+            <tr><td>13.21-13.28</td><td>Beschränktheit, aKH, Hauptidealringe</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="hero">
+        <h1>Vorlesung 13: Euklidische Ringe und Hauptidealringe</h1>
+        <p>
+          Die Vorlesung abstrahiert den klassischen Euklid-Algorithmus zu einer Normtheorie auf Integritätsringen.
+          Daraus entsteht ein struktureller Weg von Divisionsmechanik zu Idealtheorie: erst Bézout-Eigenschaft,
+          dann Kettenstabilität und schließlich Hauptidealringe.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="card def">
+          <span class="badge">Definition</span>
+          <a class="source-ref" data-anchor="euklidische-normfunktionen">Quelle: V13 §13.2 ↗</a>
+          <h3>Euklidische Normfunktion</h3>
+          <p>Eine Abbildung \(N:R\setminus\{0\}\to\mathbb{N}_{\ge 0}\), die Division mit Rest kontrolliert.</p>
+          <div class="equation">\[b\mid a\ \vee\ \exists r\neq0:\ b\mid(a-r)\ \wedge\ N(r)&lt;N(b)\]</div>
+        </article>
+
+        <article class="card intu">
+          <span class="badge">Intuition</span>
+          <a class="source-ref" data-anchor="beispiele-für-euklidische-normfunktionen">Quelle: V13 §13.3 ↗</a>
+          <h3>Bekannte Beispiele</h3>
+          <p>\(\mathbb{Z}\) mit \(|\cdot|\), \(\mathbf K[X]\) mit \(\deg\), und \(\mathbb{Z}[i]\) mit Gauß-Norm liefern die gleiche Abstiegsidee bei Resten.</p>
+        </article>
+
+        <article class="card note">
+          <span class="badge">Beispielobjekt</span>
+          <a class="source-ref" data-anchor="die-gaußschen-zahlen">Quelle: V13 §13.5 ↗</a>
+          <h3>Gaußsche Zahlen \(\mathbb{Z}[i]\)</h3>
+          <p>Als \(\mathbb{Z}[X]/\langle X^2+1\rangle\) erscheinen sie als algebraisches Modell für komplexe ganzzahlige Gitterpunkte.</p>
+        </article>
+
+        <article class="card def">
+          <span class="badge">Definition</span>
+          <a class="source-ref" data-anchor="die-norm-einer-gaußschen-zahl">Quelle: V13 §13.7 ↗</a>
+          <h3>Gauß-Norm</h3>
+          <div class="equation">\[N(a+ib)=a^2+b^2\]</div>
+          <p>Über Rundung in \(\mathbb{C}\) entsteht Division mit Rest in \(\mathbb{Z}[i]\).</p>
+        </article>
+
+        <article class="card def">
+          <span class="badge">Definition</span>
+          <a class="source-ref" data-anchor="euklidische-ringe">Quelle: V13 §13.8 ↗</a>
+          <h3>Euklidischer Ring</h3>
+          <p>Ein Integritätsring heißt euklidisch, wenn mindestens eine euklidische Normfunktion existiert.</p>
+        </article>
+
+        <article class="card satz">
+          <span class="badge">Satz</span>
+          <a class="source-ref" data-anchor="aus-einem-euklidischen-ring-einen-bézout-ring-zu-bauen">Quelle: V13 §13.9 ↗</a>
+          <h3>Euklidisch impliziert Bézout</h3>
+          <div class="equation">\[\forall a,b\in R\ \exists d:\ Ra+Rb=Rd\]</div>
+          <p>Der Kernbeweis läuft per Induktion über \(N(b)\).</p>
+        </article>
+
+        <article class="card beweis">
+          <span class="badge">Beweisskizze</span>
+          <a class="source-ref" data-anchor="der-beweis-dass-ein-euklidische-ring-ein-bézout-ring-ist">Quelle: V13 §13.10 ↗</a>
+          <h3>Basis und Fallunterscheidung</h3>
+          <p>Im Basisschritt \(N(b)=0\) erzwingt die Rest-Alternative einen Widerspruch, daher bleibt der Teilbarkeitsfall \(b\mid a\).</p>
+        </article>
+
+        <article class="card beweis">
+          <span class="badge">Induktion</span>
+          <a class="source-ref" data-anchor="ende-der-induktion">Quelle: V13 §13.11 ↗</a>
+          <h3>Abstieg auf kleinere Norm</h3>
+          <p>Aus \(a=bq+r\) mit \(N(r)&lt;N(b)\) folgt \(\langle a,b\rangle=\langle b,r\rangle\), dann greift die Induktionsannahme.</p>
+        </article>
+
+        <article class="card note">
+          <span class="badge">Algorithmik</span>
+          <a class="source-ref" data-anchor="der-algorithmus-von-euklid">Quelle: V13 §13.12 ↗</a>
+          <h3>Euklidischer Algorithmus als Schema</h3>
+          <div class="equation">\[\operatorname{ggT}(a,b)=\operatorname{ggT}(b,\operatorname{mod}(a,b))\]</div>
+          <p>Die Theorie liefert nicht nur Existenz, sondern auch effektive Berechnung von ggT und Bézout-Koeffizienten.</p>
+        </article>
+
+        <article class="card def">
+          <span class="badge">Definition</span>
+          <a class="source-ref" data-anchor="dedekind-hasse-normfunktionen">Quelle: V13 §13.17 ↗</a>
+          <h3>Dedekind-Hasse-Normfunktion</h3>
+          <div class="equation">\[b\mid a\ \vee\ \exists r\neq0:\ r\in\langle a,b\rangle\ \wedge\ N(r)&lt;N(b)\]</div>
+          <p>Schwächer als euklidisch: statt \(b\mid(a-r)\) genügt Mitgliedschaft in \(\langle a,b\rangle\).</p>
+        </article>
+
+        <article class="card def">
+          <span class="badge">Definition</span>
+          <a class="source-ref" data-anchor="dedekind-hasse-ringe">Quelle: V13 §13.18 ↗</a>
+          <h3>Dedekind-Hasse-Ring (DH)</h3>
+          <p>Ein Integritätsring mit einer DH-Normfunktion. Jeder euklidische Ring ist DH, aber nicht umgekehrt.</p>
+        </article>
+
+        <article class="card satz">
+          <span class="badge">Satz</span>
+          <a class="source-ref" data-anchor="dh-ringe-sind-bézout-ringe">Quelle: V13 §13.19 ↗</a>
+          <h3>DH impliziert Bézout</h3>
+          <p>Auch hier führt ein normbasierter Induktionsbeweis zu \(Ra+Rb=Rd\).</p>
+        </article>
+
+        <article class="card beweis">
+          <span class="badge">Induktionsdetail</span>
+          <a class="source-ref" data-anchor="induktionsschritt">Quelle: V13 §13.20 ↗</a>
+          <h3>Zusatzschritt im DH-Fall</h3>
+          <p>Im nichtteilbaren Fall werden zwei Zwischenideale \(\langle b,r\rangle\) und \(\langle a,r\rangle\) auf Hauptideale reduziert und dann zusammengeführt.</p>
+        </article>
+
+        <article class="card satz">
+          <span class="badge">Satz</span>
+          <a class="source-ref" data-anchor="dh-ringe-sind-beschränkt">Quelle: V13 §13.21 ↗</a>
+          <h3>DH-Ringe sind beschränkt</h3>
+          <p>Die Norm liefert eine Schranke für echte Faktorzerlegungslängen und verhindert unendliche echte Abstiege.</p>
+        </article>
+
+        <article class="card note">
+          <span class="badge">Folge</span>
+          <a class="source-ref" data-anchor="aufsteigende-kettenbedingung-für-hauptideale">Quelle: V13 §13.25 ↗</a>
+          <h3>aKH für Hauptideale</h3>
+          <p>Beschränktheit führt zur Stabilisierung aufsteigender Ketten von Hauptidealen.</p>
+        </article>
+
+        <article class="card def">
+          <span class="badge">Definition</span>
+          <a class="source-ref" data-anchor="hauptidealringe">Quelle: V13 §13.27 ↗</a>
+          <h3>Hauptidealring (HIR)</h3>
+          <p>Integritätsring + Bézout-Eigenschaft + aKH für Hauptideale.</p>
+        </article>
+
+        <article class="card satz">
+          <span class="badge">Zielsatz</span>
+          <a class="source-ref" data-anchor="dh-ringe-sind-hauptidealringe">Quelle: V13 §13.28 ↗</a>
+          <h3>DH (insb. euklidisch) impliziert HIR</h3>
+          <p>Damit sind \(\mathbb{Z}\), \(\mathbb{Z}[i]\), \(\mathbb{Q}[X]\) Beispiele von Hauptidealringen.</p>
+        </article>
+
+        <article class="card note">
+          <span class="badge">Abgrenzung</span>
+          <a class="source-ref" data-anchor="beispiele-für-nicht-euklidische-ringe">Quelle: V13 §13.16 ↗</a>
+          <h3>Nicht-euklidische Beispiele</h3>
+          <p>\(\mathbb{Z}[X]\) und \(\mathbb{Q}[X,Y]\) sind Integritätsringe, aber keine euklidischen Ringe (bereits nicht Bézout).</p>
+        </article>
+
+        <article class="card beweis full">
+          <span class="badge">Beweisfluss-Ansicht</span>
+          <a class="source-ref" data-anchor="dh-ringe-sind-hauptidealringe">Quelle: V13 §13.17-13.28 ↗</a>
+          <h3>Strukturfluss: Normfunktion bis Hauptidealring</h3>
+          <div class="flow">
+            <div class="step"><span class="use">Schritt 1</span> Starte mit Normkonzept: euklidisch oder DH.</div>
+            <div class="step"><span class="use">Schritt 2</span> Induktion auf \(N(b)\) liefert \(Ra+Rb=Rd\): Bézout-Eigenschaft.</div>
+            <div class="step"><span class="use">Schritt 3</span> Zweite Induktion zeigt Beschränktheit von Elementen (Faktorlänge kontrolliert).</div>
+            <div class="step"><span class="use">Schritt 4</span> Beschränktheit impliziert aKH für Hauptidealketten.</div>
+            <div class="step"><span class="use">Schritt 5</span> Bézout + aKH ergibt Hauptidealring.</div>
+            <div class="step"><span class="use">Konsequenz</span> Euklidische Ringe sind ein Spezialfall der DH-Ringe und damit HIR.</div>
+          </div>
+        </article>
+
+        <article class="card note full">
+          <span class="badge">Glossar</span>
+          <a class="source-ref" data-anchor="euklidische-normfunktionen">Quelle: V13 gesamt ↗</a>
+          <h3>Kompaktes Symbolglossar zu Vorlesung 13</h3>
+          <div class="tracker" style="margin-top:8px;">
+            <table>
+              <thead>
+                <tr><th>Symbol</th><th>Lesart</th><th>Bedeutung</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>\(N\)</td><td>Normfunktion</td><td>Maß für Restabstieg in Teilbarkeitsargumenten</td></tr>
+                <tr><td>\(\langle a,b\rangle\)</td><td>zweierzeugtes Ideal</td><td>Ziel: Darstellung als \(\langle d\rangle\)</td></tr>
+                <tr><td>Bézout-Ring</td><td>zweierzeugt-haupt</td><td>Jedes endlich erzeugte Ideal ist Hauptideal</td></tr>
+                <tr><td>DH-Ring</td><td>Dedekind-Hasse</td><td>Integritätsring mit DH-Normfunktion</td></tr>
+                <tr><td>aKH</td><td>ACC für Hauptideale</td><td>Aufsteigende Hauptidealketten stabilisieren</td></tr>
+                <tr><td>HIR</td><td>Hauptidealring</td><td>Bézout + aKH im Integritätsring</td></tr>
+                <tr><td>\(\mathbb{Z}[i]\)</td><td>Gaußscher Ganzheitsring</td><td>Standardbeispiel eines euklidischen Rings</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    function lectureChapterUrl(anchor) {
+      const base = 'https://matematiflo.github.io/VorlesungAlgebra1/src/Woche7/EuklidischeRinge.html';
+      return anchor ? `${base}#${anchor}` : base;
+    }
+
+    document.querySelectorAll('.source-ref[data-anchor]').forEach((el) => {
+      const anchor = el.getAttribute('data-anchor') || '';
+      el.setAttribute('href', lectureChapterUrl(anchor));
+      el.setAttribute('target', '_blank');
+      el.setAttribute('rel', 'noopener noreferrer');
+      el.setAttribute('title', 'Zur Originalstelle in der Vorlesung springen');
+    });
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</body>
+</html>
